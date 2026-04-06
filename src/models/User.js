@@ -20,13 +20,6 @@ const userSchema = mongoose.Schema(
       trim: true,
       required: true,
     },
-    passwordConfirmation: {
-      type: String,
-      minLength: 5,
-      maxLength: 256,
-      trim: true,
-      required: true,
-    },
     role: {
       type: String,
       enum: ["CLIENT", "ADMIN"],

@@ -1,30 +1,24 @@
-import Joi from 'joi';
+import Joi from "joi";
 
-const createSubscriptionSchema= Joi.object({
-    name : Joi.string().required(),
-    price : Joi.number().integer().required(),
-    billingCycle:Joi.string().required(),
+const createFournisseur = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().email().required(),
 });
 
-
-const registerSchema= Joi.object({
-    name : Joi.string().required(),
-    email : Joi.string().email().required(),
-    password:Joi.string().required(),
+const registerSchema = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
+  passwordConfirmation: Joi.ref("password"),
 });
 
-const loginSchema= Joi.object({
-    email : Joi.string().email().required(),
-    password:Joi.string().required(),
+const loginSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required(),
 });
 
 const paramSchema = Joi.object({
-    id: Joi.string().required(),
+  id: Joi.string().required(),
 });
 
-export  {
-    createSubscriptionSchema,
-    loginSchema,
-    registerSchema,
-    paramSchema
-}
+export { createFournisseur, loginSchema, registerSchema, paramSchema };
