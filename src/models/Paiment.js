@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-const factureSchema = new mongoose.Schema({
+const paimentSchema = new mongoose.Schema({
   amount: { type: Number, required: true },
   paimentDate: { type: Date, default: Date.new },
   note: { type: String },
   mode_paiment: {
     type: String,
-    enum: ["espèces", "chèque, virement"],
+    enum: ["espèces", "chèque", "virement"],
     default: "espèces",
   },
   facture: {
@@ -16,11 +16,11 @@ const factureSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Fournisseur",
+    ref: "User",
     required: true,
   },
 });
 
-const Facture = mongoose.model("Facture", factureSchema);
+const Paiment = mongoose.model("Paiment", factureSchema);
 
-export default Facture;
+export default Paiment;
