@@ -21,6 +21,6 @@ const paimentSchema = new mongoose.Schema({
   },
 });
 
-const Paiment = mongoose.model("Paiment", factureSchema);
+const Paiment = mongoose.model("Paiment", paimentSchema);
 
 export default Paiment;
