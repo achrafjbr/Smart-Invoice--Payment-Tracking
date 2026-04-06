@@ -30,7 +30,7 @@ const consulterFournisseurSpécifique = async (fournisseurId) => {
   }
 };
 
-const modifierFournisseur = async (fournisseurId) => {
+const modifierFournisseur = async (fournisseurId, data) => {
   const fournisseur = Fournisseur.find({ _id: fournisseurId });
   if (!fournisseur) {
     return errorMessage(404, "No suplier found");
@@ -38,16 +38,14 @@ const modifierFournisseur = async (fournisseurId) => {
     return successMessage(200, fournisseur);
   }
 };
-const supprimerFournisseur = async (fournisseurId, data) => {
-  const updatedFournisseur = Fournisseur.findOneAndUpdate(
-    { _id: fournisseurId },
-    { data },
-    { new: true },
+const supprimerFournisseur = async (fournisseurId) => {
+  const deletedFournisseur = Fournisseur.findOneAndDelete(
+    {_id: fournisseurId },
   );
-  if (!updatedFournisseur) {
+  if (!deletedFournisseur) {
     return errorMessage(402, "Something went wrong");
   } else {
-    return successMessage(200, updatedFournisseur);
+    return successMessage(200, deletedFournisseur);
   }
 };
 const filterFounrnisseurParNom = async () => {};

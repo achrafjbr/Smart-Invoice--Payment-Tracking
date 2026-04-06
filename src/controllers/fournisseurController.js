@@ -19,6 +19,7 @@ const consulterFournisseurs = async (requeset, response) => {
     console.error(error);
   }
 };
+
 const consulterFournisseurSpécifique = async (requeset, response) => {
   const fournisseurId = requeset.params.id;
   try {
@@ -43,7 +44,20 @@ const modifierFournisseur = async (requeset, response) => {
     console.error(error);
   }
 };
-const supprimerFournisseur = async (requeset, response) => {};
+
+const supprimerFournisseur = async (requeset, response) => {
+  const fournisseurId = requeset.params.id;
+  try {
+    const result = await fournisseurService.supprimerFournisseur(
+      fournisseurId,
+      data,
+    );
+    return response.status(result.statusCode).json(result);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const filterFounrnisseurParNom = async (requeset, response) => {};
 
 const fournisseurController = {

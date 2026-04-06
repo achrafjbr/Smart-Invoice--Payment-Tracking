@@ -12,7 +12,8 @@ const consulterFournisseurSpécifique = async (fournisseurId) =>
 const modifierFournisseur = async (fournisseurId, data) =>
   await fournisseurDAO.modifierFournisseur(fournisseurId, data);
 
-const supprimerFournisseur = async (fournisseurId) => {};
+const supprimerFournisseur = async (fournisseurId) => 
+  await fournisseurDAO.supprimerFournisseur(fournisseurId);
 
 const filterFounrnisseurParNom = async () => {};
 
