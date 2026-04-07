@@ -21,8 +21,9 @@ const consulterFournisseurs = async (userid) => {
   }
 };
 
-const consulterFournisseurSpécifique = async (fournisseurId) => {
-  const fournisseur = await Fournisseur.find({ _id: fournisseurId });
+const consulterFournisseurSpécifique = async (userId,fournisseurId) => {
+  const fournisseur = await Fournisseur.findOne({ _id: fournisseurId });
+  //const fournisseur = await Facture.findOne({ user: userId, fournissuer: fournisseurId });
   if (!fournisseur) {
     return errorMessage(404, "No suplier found");
   } else {
