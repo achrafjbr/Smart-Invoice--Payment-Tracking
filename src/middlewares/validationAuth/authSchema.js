@@ -13,7 +13,7 @@ const registerSchema = (request, response, next) => {
   if (!error) {
     next();
   } else {
-    return response.status(400).json({ error: error.details[0].message });
+    return response.status(402).json({ error: error.details[0].message });
   }
 };
 

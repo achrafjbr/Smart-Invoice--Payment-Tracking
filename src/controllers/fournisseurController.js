@@ -34,9 +34,6 @@ const consulterFournisseurSpécifique = async (requeset, response) => {
 const modifierFournisseur = async (requeset, response) => {
   const data = requeset.body;
   const fournisseurId = requeset.params.id;
-  console.log("Data", data);
-  console.log("fournisseurId", fournisseurId);
-
   try {
     const result = await fournisseurService.modifierFournisseur(
       fournisseurId,
@@ -50,8 +47,12 @@ const modifierFournisseur = async (requeset, response) => {
 
 const supprimerFournisseur = async (requeset, response) => {
   const fournisseurId = requeset.params.id;
+  const userId = requeset.user.id;
   try {
-    const result = await fournisseurService.supprimerFournisseur(fournisseurId);
+    const result = await fournisseurService.supprimerFournisseur(
+      fournisseurId,
+      userId,
+    );
     return response.status(result.statusCode).json(result);
   } catch (error) {
     console.error(error);

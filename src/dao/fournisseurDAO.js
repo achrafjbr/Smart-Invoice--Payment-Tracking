@@ -43,8 +43,9 @@ const modifierFournisseur = async (fournisseurId, data) => {
   }
 };
 
-const supprimerFournisseur = async (fournisseurId) => {
+const supprimerFournisseur = async (fournisseurId, userId) => {
   const deletedFournisseur = await Fournisseur.findOneAndDelete({
+    userId: userId,
     _id: fournisseurId,
   });
   if (!deletedFournisseur) {
