@@ -34,6 +34,9 @@ const consulterFournisseurSpécifique = async (requeset, response) => {
 const modifierFournisseur = async (requeset, response) => {
   const data = requeset.body;
   const fournisseurId = requeset.params.id;
+  console.log("Data", data);
+  console.log("fournisseurId", fournisseurId);
+
   try {
     const result = await fournisseurService.modifierFournisseur(
       fournisseurId,
@@ -48,17 +51,25 @@ const modifierFournisseur = async (requeset, response) => {
 const supprimerFournisseur = async (requeset, response) => {
   const fournisseurId = requeset.params.id;
   try {
-    const result = await fournisseurService.supprimerFournisseur(
-      fournisseurId,
-      data,
-    );
+    const result = await fournisseurService.supprimerFournisseur(fournisseurId);
     return response.status(result.statusCode).json(result);
   } catch (error) {
     console.error(error);
   }
 };
 
-const filterFounrnisseurParNom = async (requeset, response) => {};
+const filterFounrnisseurParNom = async (requeset, response) => {
+  const {
+    query: { name },
+  } = requeset;
+
+  try {
+    const result = await fournisseurService.filterFounrnisseurParNom(name);
+    return response.status(result.statusCode).json(result);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 const fournisseurController = {
   createFournisseur,

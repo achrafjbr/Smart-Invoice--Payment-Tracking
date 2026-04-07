@@ -13,7 +13,7 @@ const createFournisseur = async (fournisseur) => {
 };
 
 const consulterFournisseurs = async (userid) => {
-  const data = Facture.find({ user: userid }).populate("fournisseur");
+  const data = await Facture.find({ user: userid }).populate("fournisseur");
   if (!data) {
     return errorMessage(404, "No suplier found");
   } else {
@@ -22,7 +22,7 @@ const consulterFournisseurs = async (userid) => {
 };
 
 const consulterFournisseurSpécifique = async (fournisseurId) => {
-  const fournisseur = Fournisseur.find({ _id: fournisseurId });
+  const fournisseur = await Fournisseur.find({ _id: fournisseurId });
   if (!fournisseur) {
     return errorMessage(404, "No suplier found");
   } else {
@@ -31,24 +31,37 @@ const consulterFournisseurSpécifique = async (fournisseurId) => {
 };
 
 const modifierFournisseur = async (fournisseurId, data) => {
-  const fournisseur = Fournisseur.find({ _id: fournisseurId });
-  if (!fournisseur) {
+  const updatedFournisseur = await Fournisseur.findByIdAndUpdate(
+    { _id: fournisseurId },
+    data,
+    { new: true },
+  );
+  if (!updatedFournisseur) {
     return errorMessage(404, "No suplier found");
   } else {
-    return successMessage(200, fournisseur);
+    return successMessage(200, updatedFournisseur);
   }
 };
+
 const supprimerFournisseur = async (fournisseurId) => {
-  const deletedFournisseur = Fournisseur.findOneAndDelete(
-    {_id: fournisseurId },
-  );
+  const deletedFournisseur = await Fournisseur.findOneAndDelete({
+    _id: fournisseurId,
+  });
   if (!deletedFournisseur) {
     return errorMessage(402, "Something went wrong");
   } else {
     return successMessage(200, deletedFournisseur);
   }
 };
-const filterFounrnisseurParNom = async () => {};
+
+const filterFounrnisseurParNom = async (name) => {
+  const fournisseurs = await Fournisseur.find({ name }).exec();
+  if (fournisseurs.length <= 0) {
+    return errorMessage(404, "No suplier found");
+  } else {
+    return successMessage(200, fournisseurs);
+  }
+};
 
 const fournisseurDAO = {
   createFournisseur,

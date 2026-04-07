@@ -1,7 +1,10 @@
 import { Router } from "express";
 import { createFournisseurSchema } from "../middlewares/validationAuth/fournisseurSchema.js";
 import fournisseurController from "../controllers/fournisseurController.js";
+import { authRoles, isAuthenticated } from "../middlewares/authentication.js";
 const fournisseurRouter = Router();
+
+fournisseurRouter.use(isAuthenticated, authRoles("CLIENT", "ADMIN"));
 
 fournisseurRouter.post(
   "/",
@@ -9,16 +12,26 @@ fournisseurRouter.post(
   fournisseurController.createFournisseur,
 );
 
-fournisseurRouter.get(
-  "/",
-  createFournisseurSchema,
-  fournisseurController.consulterFournisseurs,
-);
+fournisseurRouter.get("/", fournisseurController.consulterFournisseurs);
 
 fournisseurRouter.get(
   "/:id", // id refers to fournissaur
-  createFournisseurSchema,
   fournisseurController.consulterFournisseurSpécifique,
+);
+
+fournisseurRouter.get(
+  "/search/names", // id refers to fournissaur
+  fournisseurController.filterFounrnisseurParNom,
+);
+
+fournisseurRouter.put(
+  "/:id", // id refers to fournissaur
+  fournisseurController.modifierFournisseur,
+);
+
+fournisseurRouter.delete(
+  "/:id", // id refers to fournissaur
+  fournisseurController.supprimerFournisseur,
 );
 
 export default fournisseurRouter;

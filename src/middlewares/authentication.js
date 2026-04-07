@@ -1,5 +1,5 @@
-import { verifyToken }  from "../utils/jwtoken.js";
-import {getHeaderToken} from '../utils/utilities.js'
+import { verifyToken } from "../utils/jwtoken.js";
+import { getHeaderToken } from "../utils/utilities.js";
 
 const isAuthenticated = (req, res, next) => {
   const token = getHeaderToken(req);
@@ -8,9 +8,9 @@ const isAuthenticated = (req, res, next) => {
   try {
     const decodedToken = verifyToken(token);
     req.user = decodedToken;
-    console.log('dec',decodedToken);
-    console.log('user',req.user);
-    
+    console.log("TOKEN", token);
+    console.log("user", req.user);
+
     next();
   } catch (err) {
     return res.status(401).json({ message: "Invalid token" });
@@ -18,11 +18,14 @@ const isAuthenticated = (req, res, next) => {
 };
 
 const authRoles = (...roles) => {
+  console.log("ROLES : ", roles);
+
   return (req, res, next) => {
     if (!req.user) {
       return res.status(401).json({ message: "User not authenticated" });
     }
 
+    console.log("ROLES : ", roles);
     if (!roles.includes(req.user.role)) {
       return res.status(403).json({ message: "Access denied" });
     }
@@ -31,4 +34,4 @@ const authRoles = (...roles) => {
   };
 };
 
-export  { isAuthenticated, authRoles };
+export { isAuthenticated, authRoles };

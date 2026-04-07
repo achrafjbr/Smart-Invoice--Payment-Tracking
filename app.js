@@ -19,12 +19,7 @@ connectDB();
 
 app.use(`${PREFIX_ROUTE_PATH}/auth`, authenticationRouter);
 
-app.use(
-  `${PREFIX_ROUTE_PATH}/suppliers`,
-  isAuthenticated,
-  authRoles("CLIENT, ADMIN"),
-  fournisseurRouter,
-);
+app.use(`${PREFIX_ROUTE_PATH}/suppliers`, fournisseurRouter);
 
 app.listen(process.env.PORT || 3000, (err) => {
   if (!err) {
