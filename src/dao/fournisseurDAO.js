@@ -5,10 +5,7 @@ import User from "../models/User.js";
 import { errorMessage, successMessage } from "../utils/error.js";
 
 const createFournisseur = async (fournisseur) => {
-  const isExisted = await existedEmail(fournisseur.email, Fournisseur);
-  if (isExisted) {
-    return errorMessage(422, "Email already existed");
-  }
+  //const isExisted = await existedEmail(fournisseur.email, Fournisseur);
   const newFournisseur = await Fournisseur.create(fournisseur);
   if (!newFournisseur) {
     return errorMessage(500, "Something went wrong. Please try again");

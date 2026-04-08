@@ -2,6 +2,8 @@ import fournisseurService from "../services/fournisseurService.js";
 
 const createFournisseur = async (requeset, response) => {
   const fournisseur = requeset.body;
+  requeset.Model = "Fournisseur";
+
   try {
     const result = await fournisseurService.createFournisseur({
       ...fournisseur,

@@ -2,6 +2,8 @@ import { Router } from "express";
 import { createFournisseurSchema } from "../middlewares/validationFournisseur/fournisseurSchema.js";
 import fournisseurController from "../controllers/fournisseurController.js";
 import { authRoles, isAuthenticated } from "../middlewares/authentication.js";
+import existedEmail from "../middlewares/validateEmailExistance/existedEmail.js";
+import Fournisseur from "../models/Fournirsseur.js";
 const fournisseurRouter = Router();
 
 fournisseurRouter.use(isAuthenticated, authRoles("CLIENT", "ADMIN"));
@@ -9,6 +11,7 @@ fournisseurRouter.use(isAuthenticated, authRoles("CLIENT", "ADMIN"));
 fournisseurRouter.post(
   "/",
   createFournisseurSchema,
+  existedEmail(Fournisseur),
   fournisseurController.createFournisseur,
 );
 
