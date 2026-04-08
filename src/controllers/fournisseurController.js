@@ -3,7 +3,10 @@ import fournisseurService from "../services/fournisseurService.js";
 const createFournisseur = async (requeset, response) => {
   const fournisseur = requeset.body;
   try {
-    const result = await fournisseurService.createFournisseur(fournisseur);
+    const result = await fournisseurService.createFournisseur({
+      ...fournisseur,
+      name: fournisseur.name.toLowerCase(),
+    });
     return response.status(result.statusCode).json(result);
   } catch (error) {
     console.error(error);

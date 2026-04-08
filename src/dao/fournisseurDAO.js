@@ -1,9 +1,14 @@
+import existedEmail from "../middlewares/validateEmailExistance/existedEmail.js";
 import Facture from "../models/Facture.js";
 import Fournisseur from "../models/Fournirsseur.js";
 import User from "../models/User.js";
 import { errorMessage, successMessage } from "../utils/error.js";
 
 const createFournisseur = async (fournisseur) => {
+  const isExisted = await existedEmail(fournisseur.email, Fournisseur);
+  if (isExisted) {
+    return errorMessage(422, "Email already existed");
+  }
   const newFournisseur = await Fournisseur.create(fournisseur);
   if (!newFournisseur) {
     return errorMessage(500, "Something went wrong. Please try again");
@@ -13,6 +18,7 @@ const createFournisseur = async (fournisseur) => {
 };
 
 const consulterFournisseurs = async (userid) => {
+  console.log("userid", userid);
   const data = await Facture.find({ user: userid }).populate("fournisseur");
   if (!data) {
     return errorMessage(404, "No suplier found");
@@ -21,9 +27,9 @@ const consulterFournisseurs = async (userid) => {
   }
 };
 
-const consulterFournisseurSpécifique = async (userId,fournisseurId) => {
+const consulterFournisseurSpécifique = async (fournisseurId) => {
   const fournisseur = await Fournisseur.findOne({ _id: fournisseurId });
-  //const fournisseur = await Facture.findOne({ user: userId, fournissuer: fournisseurId });
+  //const fournisseur = await Facture.findOne({ user: '69d4bdcd7903ea03f3061cce', fournissuer: fournisseurId });
   if (!fournisseur) {
     return errorMessage(404, "No suplier found");
   } else {
@@ -57,7 +63,7 @@ const supprimerFournisseur = async (fournisseurId, userId) => {
 };
 
 const filterFounrnisseurParNom = async (name) => {
-  const fournisseurs = await Fournisseur.find({ name }).exec();
+  const fournisseurs = await Fournisseur.find({ name: name }).exec();
   if (fournisseurs.length <= 0) {
     return errorMessage(404, "No suplier found");
   } else {
