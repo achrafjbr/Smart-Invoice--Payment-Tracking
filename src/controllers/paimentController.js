@@ -1,13 +1,10 @@
 import paimentService from "../services/paimentService.js";
 
-const enregistrerUnPaiement = async (request, response) => {
-  const factureId = request.params.id;
-  const userId = request.user.id;
-  const data = request.body;
-  console.log("factureId", factureId);
-  console.log("userId", userId);
-  console.log("body", data);
-  await paimentService.enregistrerUnPaiement(userId, factureId, data);
+const enregistrerUnPaiement = async (_, response) => {
+  const {
+    locals: { payload },
+  } = response;
+  await paimentService.enregistrerUnPaiement(payload);
 };
 
 const consulterListePaiementsDunefacture = async (request, response) =>

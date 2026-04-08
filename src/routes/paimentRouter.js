@@ -7,6 +7,7 @@ const paimentRouter = Router({ mergeParams: true });
 paimentRouter.post(
   "/payments",
   paimentValidation.validatePaimentAmount,
+  paimentValidation.validateOwnershipInvoice,
   paimentCotroller.enregistrerUnPaiement,
 );
 paimentRouter.get("/", paimentCotroller.consulterListePaiementsDunefacture);

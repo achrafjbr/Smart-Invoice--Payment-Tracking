@@ -1,6 +1,5 @@
 import { errorMessage } from "../../utils/error.js";
 const existedEmail = (Model) => {
-  console.log("Model", Model);
   return async (request, response, next) => {
     const isExisted = Promise.all([
       await Model.findOne({

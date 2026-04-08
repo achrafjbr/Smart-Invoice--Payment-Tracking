@@ -1,7 +1,7 @@
 import paimentDAO from "../dao/paimentDAO.js";
 
-const enregistrerUnPaiement = async (userId, factureId, data) =>
-  await paimentDAO.enregistrerUnPaiement(userId, factureId, data);
+const enregistrerUnPaiement = async (payload) =>
+  await paimentDAO.enregistrerUnPaiement(payload);
 
 const consulterListePaiementsDunefacture = async () =>
   await paimentDAO.consulterListePaiementsDunefacture();
