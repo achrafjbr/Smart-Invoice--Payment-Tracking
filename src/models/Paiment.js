@@ -11,7 +11,7 @@ const paimentSchema = new mongoose.Schema({
   },
   facture: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Fournisseur",
+    ref: "Facture",
     required: true,
   },
   user: {
