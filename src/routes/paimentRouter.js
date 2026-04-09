@@ -10,6 +10,10 @@ paimentRouter.post(
   paimentValidation.validateOwnershipInvoice,
   paimentCotroller.enregistrerUnPaiement,
 );
-paimentRouter.get("/", paimentCotroller.consulterListePaiementsDunefacture);
+
+paimentRouter.get(
+  "/payments",
+  paimentCotroller.consulterListePaiementsDunefacture,
+);
 
 export default paimentRouter;

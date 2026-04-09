@@ -4,11 +4,24 @@ const enregistrerUnPaiement = async (_, response) => {
   const {
     locals: { payload },
   } = response;
-  await paimentService.enregistrerUnPaiement(payload);
+  try {
+    const result = await paimentService.enregistrerUnPaiement(payload);
+    return response.status(result.statusCode).json(result);
+  } catch (error) {
+    console.error(error.message);
+  }
 };
 
-const consulterListePaiementsDunefacture = async (request, response) =>
-  await paimentService.consulterListePaiementsDunefacture();
+const consulterListePaiementsDunefacture = async (request, response) => {
+  const factureId = request.params.id;
+  try {
+    const result =
+      await paimentService.consulterListePaiementsDunefacture(factureId);
+    return response.status(result.statusCode).json(result);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
 
 const paimentCotroller = {
   enregistrerUnPaiement,
