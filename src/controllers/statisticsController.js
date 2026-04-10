@@ -1,4 +1,4 @@
-import { statistiqueParFournisseurService } from "../services/statisticsService";
+import { statistiqueParFournisseurService } from "../services/statisticsService.js";
 
 const statistiqueParFournisseurController = async (request, response) => {
   const fournisseurId = request.params.id;
