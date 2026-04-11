@@ -23,7 +23,7 @@ const enregistrerUnPaiement = async (payload) => {
   });
 
   await updateFactureStatus(payload.factureId, payload.status);
-  return successMessage(201, { payment });
+  return successMessage(201, payment );
 };
 
 const consulterListePaiementsDunefacture = async (factureId) => {
