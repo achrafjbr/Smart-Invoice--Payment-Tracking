@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Facture from "../models/Facture.js";
 import { errorMessage, successMessage } from "../utils/error.js";
 
@@ -11,15 +12,17 @@ const createFacture = async (facture) => {
 };
 
 const consulterSesFactures = async (userId) => {
-  //Facture.deleteOne({ userid }).populate({ path: "fournisseur" }).deleteOne({ fournisseur });
-  const factures = await Facture.find({ user: userId }, { __v: 0, user: 0 })
+  console.log(userId)
+  const factures = await Facture.find({ user: new mongoose.Types.ObjectId(userId) }, { __v: 0, user: 0 })
     .populate({
       path: "fournisseur",
       model: "Fournisseur",
       select: "name contact address phone email",
     })
     .lean();
-  if (!factures) {
+  console.log('factures', factures);
+
+  if (factures.length <= 0) {
     return errorMessage(404, "No invoice found");
   } else {
     return successMessage(200, factures);
@@ -56,7 +59,7 @@ const supprimerUneFacture = async (userId, factureId) => {
 };
 
 const filterFactureByStatus = async (status, userId) => {
-  const facture = await Facture.findOne({ _id: userId, status: status });
+  const facture = await Facture.find({ user: userId, status: status });
   if (!facture) {
     return errorMessage(404, "No facture found");
   } else {

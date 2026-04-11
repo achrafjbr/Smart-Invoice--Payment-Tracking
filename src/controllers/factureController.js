@@ -50,7 +50,6 @@ const supprimerUneFacture = async (request, response) => {
   }
 };
 const filterFactureByStatus = async (request, response) => {
-  console.log(request.query);
   const {
     query: { status },
   } = request;
