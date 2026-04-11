@@ -15,9 +15,8 @@ const createFournisseur = async (fournisseur) => {
 };
 
 const consulterFournisseurs = async (userid) => {
-  console.log("userid", userid);
   const data = await Facture.find({ user: userid }).populate("fournisseur");
-  if (!data) {
+  if (data.length<=0) {
     return errorMessage(404, "No suplier found");
   } else {
     return successMessage(200, data);
