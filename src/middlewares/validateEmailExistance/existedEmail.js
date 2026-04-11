@@ -1,11 +1,10 @@
 import { errorMessage } from "../../utils/error.js";
 const existedEmail = (Model) => {
   return async (request, response, next) => {
-    const isExisted = Promise.all([
-      await Model.findOne({
-        email: request.email,
-      }),
-    ]);
+    const isExisted = await Model.findOne({
+      email: request.email,
+    });
+      console.log('isExisted', isExisted)
     if (isExisted) {
       return response
         .status(422)
